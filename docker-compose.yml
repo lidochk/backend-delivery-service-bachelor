@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  user-service:
+    image: user-service:latest
+    ports:
+      - 8085:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/user-service?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=bestuser
+      - SPRING_DATASOURCE_PASSWORD=bestuser
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_SHOW_SQL=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
+  order-service:
+    image: order-service:latest
+    ports:
+      - 8082:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/order-service?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=bestuser
+      - SPRING_DATASOURCE_PASSWORD=bestuser
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_SHOW_SQL=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
+  restaurant-service:
+    image: restaurant-service:latest
+    ports:
+      - 8081:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/restaurant-service?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=bestuser
+      - SPRING_DATASOURCE_PASSWORD=bestuser
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_SHOW_SQL=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
+  auth-service:
+    image: auth-service:latest
+    ports:
+      - 8083:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/auth-service?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=bestuser
+      - SPRING_DATASOURCE_PASSWORD=bestuser
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_SHOW_SQL=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
+  courier-service:
+    image: courier-service:latest
+    ports:
+      - 8084:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/courier-service?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=bestuser
+      - SPRING_DATASOURCE_PASSWORD=bestuser
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_SHOW_SQL=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
+  review-rating-service:
+    image: review-rating-service:latest
+    ports:
+      - 8086:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/review-rating-service?useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=bestuser
+      - SPRING_DATASOURCE_PASSWORD=bestuser
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_SHOW_SQL=true
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
+
+  api-gateway:
+    image: gateway-service:latest
+    ports:
+      - 8080:8080
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8762/eureka/
+
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=my_connection
+      - MYSQL_USER=bestuser
+      - MYSQL_PASSWORD=bestuser
+      - MYSQL_ROOT_PASSWORD=rootpassword
